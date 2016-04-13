@@ -2,7 +2,6 @@ import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import browserSync from 'browser-sync'; // Used to automaticaly refresh the browser
 import del from 'del'; // Used for cleaning up the folders
-import { stream as wiredep } from 'wiredep'; // Used to inject bower components into index.html
 import babelify from 'babelify'; // Used to convert ES6 & JSX to ES5
 import rollupify from 'rollupify'; // Used to tree shake the code
 import browserify from 'browserify'; // Providers "require" support, CommonJS
@@ -107,7 +106,6 @@ gulp.task('serve', ['styles', 'scripts', 'fonts'], () => {
 	gulp.watch('app/styles/**/*.scss', ['styles']);
 	gulp.watch('app/scripts/**/*.js', ['scripts']);
 	gulp.watch('app/fonts/**/*', ['fonts']);
-	gulp.watch('bower.json', ['wiredep', 'fonts']);
 });
 
 gulp.task('serve:dist', () => {
@@ -137,22 +135,6 @@ gulp.task('serve:test', ['scripts'], () => {
 	gulp.watch('app/scripts/**/*.js', ['scripts']);
 	gulp.watch('test/spec/**/*.js').on('change', reload);
 	gulp.watch('test/spec/**/*.js', ['lint:test']);
-});
-
-// inject bower components
-gulp.task('wiredep', () => {
-	gulp.src('app/styles/*.scss')
-		.pipe(wiredep({
-			ignorePath: /^(\.\.\/)+/
-		}))
-		.pipe(gulp.dest('app/styles'));
-
-	gulp.src('app/*.html')
-		.pipe(wiredep({
-			exclude: ['bootstrap-sass'],
-			ignorePath: /^(\.\.\/)*\.\./
-		}))
-		.pipe(gulp.dest('app'));
 });
 
 gulp.task('build', ['lint', 'html', 'images', 'fonts', 'extras'], () => {
@@ -209,7 +191,7 @@ gulp.task('scripts', () => {
 		.pipe($.rename('main.build.js')) // Rename the output file
 		.pipe($.sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
 		.pipe($.sourcemaps.write('.')) // Set folder for sourcemaps to output to
-		.pipe(gulp.dest('.client/scripts')) // Set the output folder
+		.pipe(gulp.dest('.public/scripts')) // Set the output folder
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' }))) // Output the file being created
 		.pipe(bundleTimer) // Output time timing of the file creation
 		.pipe(reload({ stream: true })); // Reload the view in the browser
