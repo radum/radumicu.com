@@ -1,0 +1,12 @@
+#!/bin/bash
+
+: ${PORT:="3000"}
+
+gulp clean
+
+NODE_ENV=development
+
+gulp build:dev
+
+# Start app
+nodemon -e js,hbs server.js
