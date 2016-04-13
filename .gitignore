@@ -6,3 +6,4 @@ dist
 client/bower_components
 temp
 tmp
+npm-debug.log
