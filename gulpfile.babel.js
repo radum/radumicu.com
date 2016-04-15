@@ -121,8 +121,7 @@ gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images'], () => {
 gulp.task('start:dev', ['build:dev'], () => {
 	$.nodemon({
 		script: 'server.js',
-		ext: 'hbs js',
-		tasks: ['bs']
+		ext: 'hbs js'
 	})
 	.on('restart', () => {
 		console.log('[nodemon] restarted!');

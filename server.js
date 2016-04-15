@@ -1,10 +1,13 @@
+var development = require('./lib/development');
+var env = require('./lib/env');
+
 var app = require('./app');
 var http = require('http');
 
 /**
  * Get port from environment and store in Express.
  */
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(env('PORT'));
 app.set('port', port);
 
 /**
@@ -69,6 +72,8 @@ function onError(error) {
 function onListening() {
 	var addr = server.address();
 	var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+
+	development.browserSync();
 
 	console.log('Listening on ' + bind);
 }
