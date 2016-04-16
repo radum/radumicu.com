@@ -1,21 +1,23 @@
 /* global $ */
 
 import Console from './lib/console';
+import $ from 'jquery';
 
-function Hello() {
-	this.reply = 'Hello!';
+class Hello {
+	constructor () {
+		this.reply = 'Hello!';
+		this.logger = new Console();
+	}
 
-	this.logger = new Console();
+	hi () {
+		this.logger.log(this.reply + ' ' + name);
+	}
+
+	domUpdate () {
+		setTimeout(() => {
+			$('body').addClass('red');
+		}, 2000);
+	}
 }
-
-Hello.prototype.hi = function hi(name) {
-	this.logger.log(this.reply + ' ' + name);
-};
-
-Hello.prototype.domUpdate = function domUpdate() {
-	setTimeout(() => {
-		$('body').css('background-color', '#FF7043');
-	}, 2000);
-};
 
 export default Hello;
