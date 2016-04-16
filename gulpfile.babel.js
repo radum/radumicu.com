@@ -1,6 +1,5 @@
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import browserSync from 'browser-sync'; // Used to automaticaly refresh the browser
 import del from 'del'; // Used for cleaning up the folders
 import babelify from 'babelify'; // Used to convert ES6 & JSX to ES5
 import rollupify from 'rollupify'; // Used to tree shake the code
@@ -10,7 +9,6 @@ import source from 'vinyl-source-stream'; // Vinyl stream support
 import buffer from 'vinyl-buffer'; // Vinyl stream support
 
 const $ = gulpLoadPlugins();
-const reload = browserSync.reload;
 
 GLOBAL.config = {
 	env: 'prod',
@@ -48,7 +46,6 @@ gulp.task('styles', () => {
 		.pipe($.sourcemaps.write())
 		.pipe(gulp.dest('.public/styles'))
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' })))
-		.pipe(reload({ stream: true }));
 });
 
 gulp.task('scripts', () => {
@@ -79,7 +76,6 @@ gulp.task('scripts', () => {
 		.pipe(gulp.dest('.public/scripts')) // Set the output folder
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' }))) // Output the file being created
 		.pipe(bundleTimer) // Output time timing of the file creation
-		.pipe(reload({ stream: true })); // Reload the view in the browser
 });
 
 gulp.task('fonts', () => {
@@ -107,11 +103,6 @@ gulp.task('images', () => {
 gulp.task('clean', del.bind(null, ['.public', '.tmp', 'dist']));
 
 gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images'], () => {
-	gulp.watch([
-		'client/images/**/*',
-		'.public/fonts/**/*'
-	]).on('change', reload);
-
 	gulp.watch('client/styles/**/*.scss', ['styles']);
 	gulp.watch('client/scripts/**/*.js', ['scripts']);
 	gulp.watch('client/fonts/**/*', ['fonts']);

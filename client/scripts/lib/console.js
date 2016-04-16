@@ -1,6 +1,6 @@
 /* eslint "no-console": 0 */
 
-class Console() {
+class Console {
 	constructor () {
 
 	}
