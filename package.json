@@ -41,6 +41,7 @@
     "main-bower-files": "^2.5.0",
     "nodemon": "^1.9.1",
     "rollupify": "^0.2.0",
+    "through2": "^2.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
   },
@@ -53,6 +54,8 @@
     "morgan": "^1.7.0",
     "nconf": "^0.8.4",
     "serve-favicon": "^2.3.0",
+    "taunus": "^8.1.2",
+    "taunus-express": "^3.0.0",
     "winston": "^2.2.0"
   }
 }

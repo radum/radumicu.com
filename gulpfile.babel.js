@@ -118,3 +118,31 @@ gulp.task('start:dev', ['build:dev'], () => {
 		console.log('[nodemon] restarted!');
 	});
 });
+
+var compileViews = function() {
+	var through = require('through2');
+	var hbsfy = require("hbsfy");
+	var opts = { traverse: true };
+
+	return through.obj(function(file, enc, cb) {
+		if (file.isNull()) {
+			// return empty file
+			return cb(null, file);
+		}
+		if (file.isBuffer()) {
+			file.contents = new Buffer(hbsfy.compile(file.path, opts));
+		}
+		if (file.isStream()) {
+			file.contents = through().write(hbsfy.compile(file, opts));
+		}
+
+		cb(null, file);
+	});
+};
+
+gulp.task('views', () => {
+	return gulp.src('views/**/*.hbs')
+		.pipe(compileViews())
+		.pipe($.rename({ extname: '.js' }))
+		.pipe(gulp.dest('.public/views'));
+});
