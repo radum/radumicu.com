@@ -122,7 +122,9 @@ gulp.task('start:dev', ['build:dev'], () => {
 var compileViews = function() {
 	var through = require('through2');
 	var hbsfy = require("hbsfy");
-	var opts = { traverse: true };
+	var opts = {
+		traverse: true
+	};
 
 	return through.obj(function(file, enc, cb) {
 		if (file.isNull()) {
