@@ -1,6 +1,13 @@
-import Hello from './hello';
+// import Hello from './hello';
 
-const app = new Hello();
+// const app = new Hello();
 
-app.hi('RaduM');
-app.domUpdate();
+// app.hi('RaduM');
+// app.domUpdate();
+
+import taunus from 'taunus';
+import wiring from '../../.bin/wiring';
+
+var main = document.getElementsByTagName('main')[0];
+
+taunus.mount(main, wiring);

@@ -21,13 +21,13 @@ taunusExpress(taunus, app, {
 	layout: require('./.bin/views/layouts/main')
 });
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// uncomment after placing your favicon in /client
+// app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '.bin/public')));
+app.use(express.static(path.join(__dirname, '.bin/client')));
 
 // error handlers
 

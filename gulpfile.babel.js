@@ -44,7 +44,7 @@ gulp.task('styles', () => {
 		}).on('error', $.sass.logError))
 		.pipe($.autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
 		.pipe($.sourcemaps.write())
-		.pipe(gulp.dest('.bin/public/styles'))
+		.pipe(gulp.dest('.bin/client/styles'))
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' })));
 });
 
@@ -73,7 +73,7 @@ gulp.task('scripts', () => {
 		.pipe($.rename('main.build.js')) // Rename the output file
 		.pipe($.sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
 		.pipe($.sourcemaps.write('.')) // Set folder for sourcemaps to output to
-		.pipe(gulp.dest('.bin/public/scripts')) // Set the output folder
+		.pipe(gulp.dest('.bin/client/scripts')) // Set the output folder
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' }))) // Output the file being created
 		.pipe(bundleTimer); // Output time timing of the file creation
 });
@@ -85,7 +85,7 @@ gulp.task('fonts', () => {
 		}
 	})
 		.concat('client/fonts/**/*'))
-		.pipe(gulp.dest('.bin/public/fonts'));
+		.pipe(gulp.dest('.bin/client/fonts'));
 });
 
 gulp.task('images', () => {
@@ -97,7 +97,7 @@ gulp.task('images', () => {
 			// as hooks for embedding and styling
 			svgoPlugins: [{ cleanupIDs: false }]
 		})))
-		.pipe(gulp.dest('.bin/public/images'));
+		.pipe(gulp.dest('.bin/client/images'));
 });
 
 gulp.task('views', () => {
