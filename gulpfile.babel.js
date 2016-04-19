@@ -100,6 +100,15 @@ gulp.task('images', () => {
 		.pipe(gulp.dest('.public/images'));
 });
 
+gulp.task('views', () => {
+	gulp.src(['views/**/*.hbs'])
+		.pipe($.handlebars({
+			handlebars: require('handlebars')
+		}))
+		.pipe($.defineModule('node'))
+		.pipe(gulp.dest('.public/views/'));
+});
+
 gulp.task('clean', del.bind(null, ['.public', '.tmp', 'dist']));
 
 gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images'], () => {
@@ -117,34 +126,4 @@ gulp.task('start:dev', ['build:dev'], () => {
 	.on('restart', () => {
 		console.log('[nodemon] restarted!');
 	});
-});
-
-var compileViews = function() {
-	var through = require('through2');
-	var hbsfy = require("hbsfy");
-	var opts = {
-		traverse: true
-	};
-
-	return through.obj(function(file, enc, cb) {
-		if (file.isNull()) {
-			// return empty file
-			return cb(null, file);
-		}
-		if (file.isBuffer()) {
-			file.contents = new Buffer(hbsfy.compile(file.path, opts));
-		}
-		if (file.isStream()) {
-			file.contents = through().write(hbsfy.compile(file, opts));
-		}
-
-		cb(null, file);
-	});
-};
-
-gulp.task('views', () => {
-	return gulp.src('views/**/*.hbs')
-		.pipe(compileViews())
-		.pipe($.rename({ extname: '.js' }))
-		.pipe(gulp.dest('.public/views'));
 });
