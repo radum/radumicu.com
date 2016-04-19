@@ -5,5 +5,6 @@ module.exports = function (req, res, next) {
 		}
 	};
 
+	// Render the view
 	next();
 };
