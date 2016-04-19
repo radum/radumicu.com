@@ -2,7 +2,7 @@ node_modules
 dist
 .tmp
 .sass-cache
-.public
+.bin
 client/bower_components
 temp
 tmp

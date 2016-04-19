@@ -44,8 +44,8 @@ gulp.task('styles', () => {
 		}).on('error', $.sass.logError))
 		.pipe($.autoprefixer({ browsers: ['> 1%', 'last 2 versions', 'Firefox ESR'] }))
 		.pipe($.sourcemaps.write())
-		.pipe(gulp.dest('.public/styles'))
-		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' })))
+		.pipe(gulp.dest('.bin/public/styles'))
+		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' })));
 });
 
 gulp.task('scripts', () => {
@@ -73,9 +73,9 @@ gulp.task('scripts', () => {
 		.pipe($.rename('main.build.js')) // Rename the output file
 		.pipe($.sourcemaps.init({ loadMaps: true })) // Extract the inline sourcemaps
 		.pipe($.sourcemaps.write('.')) // Set folder for sourcemaps to output to
-		.pipe(gulp.dest('.public/scripts')) // Set the output folder
+		.pipe(gulp.dest('.bin/public/scripts')) // Set the output folder
 		.pipe($.if(GLOBAL.config.notify, $.notify({ message: 'Generated file: <%= file.relative %>' }))) // Output the file being created
-		.pipe(bundleTimer) // Output time timing of the file creation
+		.pipe(bundleTimer); // Output time timing of the file creation
 });
 
 gulp.task('fonts', () => {
@@ -85,7 +85,7 @@ gulp.task('fonts', () => {
 		}
 	})
 		.concat('client/fonts/**/*'))
-		.pipe(gulp.dest('.public/fonts'));
+		.pipe(gulp.dest('.bin/public/fonts'));
 });
 
 gulp.task('images', () => {
@@ -97,7 +97,7 @@ gulp.task('images', () => {
 			// as hooks for embedding and styling
 			svgoPlugins: [{ cleanupIDs: false }]
 		})))
-		.pipe(gulp.dest('.public/images'));
+		.pipe(gulp.dest('.bin/public/images'));
 });
 
 gulp.task('views', () => {
@@ -106,16 +106,18 @@ gulp.task('views', () => {
 			handlebars: require('handlebars')
 		}))
 		.pipe($.defineModule('node'))
-		.pipe(gulp.dest('.public/views/'));
+		.pipe(gulp.dest('.bin/views/'));
 });
 
-gulp.task('clean', del.bind(null, ['.public', '.tmp', 'dist']));
+gulp.task('clean', del.bind(null, ['.bin', '.tmp', 'dist']));
 
-gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images'], () => {
+gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views'], () => {
 	gulp.watch('client/styles/**/*.scss', ['styles']);
 	gulp.watch('client/scripts/**/*.js', ['scripts']);
 	gulp.watch('client/fonts/**/*', ['fonts']);
 	gulp.watch('client/images/**/*', ['images']);
+
+	gulp.watch('views/**/*.hbs', ['views']);
 });
 
 gulp.task('start:dev', ['build:dev'], () => {
@@ -124,6 +126,6 @@ gulp.task('start:dev', ['build:dev'], () => {
 		ext: 'hbs js'
 	})
 	.on('restart', () => {
-		console.log('[nodemon] restarted!');
+		$.util.log(chalk.yellow('[nodemon] restarted!'));
 	});
 });

@@ -6,7 +6,7 @@
     "prefer-template": 0,
     "indent": [2, "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
     "arrow-body-style": [1, "as-needed"],
-    "max-len": [2, 100, 2, {
+    "max-len": [2, 160, 2, {
       "ignoreUrls": true,
       "ignoreComments": true
     }]

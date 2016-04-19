@@ -18,7 +18,7 @@ var app = express();
 
 taunusExpress(taunus, app, {
 	routes: routes,
-	layout: require('./.public/views/layouts/main')
+	layout: require('./.bin/views/layouts/main')
 });
 
 // // view engine setup
@@ -39,7 +39,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '.public')));
+app.use(express.static(path.join(__dirname, '.bin/public')));
 
 // app.use('/', routes);
 // app.use('/users', users);
