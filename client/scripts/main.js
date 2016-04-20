@@ -5,7 +5,7 @@
 // app.hi('RaduM');
 // app.domUpdate();
 
-import taunus from 'taunus';
+import taunus from 'taunus/browser/debug';
 import wiring from '../../.bin/wiring';
 
 var main = document.getElementsByTagName('main')[0];
