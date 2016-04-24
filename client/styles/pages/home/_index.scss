@@ -1,0 +1,26 @@
+.page-home {
+	background-color: $home-section-color-1;
+}
+
+.page-home .wrapper {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+}
+
+.page-home .page--welcome {
+	ul.headline-greeting-list > li {
+		margin-bottom: 16px;
+
+		&:first-child {
+			margin-bottom: 24px;
+		}
+	}
+
+	.headline-greeting {
+		display: inline-block;
+		min-width: 100px;
+	}
+}

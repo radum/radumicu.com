@@ -1,11 +1,7 @@
 $icon-font-path: '../fonts/';
 
-@import "../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+// @import "../bower_components/bootstrap-sass/assets/stylesheets/_bootstrap.scss";
+@import "../../node_modules/bulma/bulma";
 
-body {
-	background: #81d4fa;
-}
-
-.red {
-	background: #FF7043;
-}
+@import "abstracts/variables"; // Sass Variables
+@import "pages/home/index"; // Home index specific styles
