@@ -47,6 +47,7 @@
     "handlebars": "^4.0.5",
     "main-bower-files": "^2.5.0",
     "nodemon": "^1.9.1",
+    "postcss-scss": "^0.1.7",
     "rollupify": "^0.2.0",
     "through2": "^2.0.1",
     "vinyl-buffer": "^1.0.0",
