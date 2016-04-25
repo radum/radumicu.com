@@ -120,6 +120,8 @@ gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views'], () => 
 	gulp.watch('views/**/*.hbs', ['views']);
 });
 
+gulp.task('build:production', ['styles', 'scripts', 'fonts', 'images', 'views']);
+
 gulp.task('start:dev', ['build:dev'], () => {
 	$.nodemon({
 		script: 'server.js',
