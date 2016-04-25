@@ -1,7 +1,7 @@
 module.exports = function (req, res, next) {
 	res.viewModel = {
 		model: {
-			title: 'Welcome Home, Taunus! Yuhuu'
+			title: 'radumicu.com - Welcome to my corner of the web'
 		}
 	};
 
