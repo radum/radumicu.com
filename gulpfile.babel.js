@@ -13,11 +13,16 @@ import buffer from 'vinyl-buffer'; // Vinyl stream support
 const $ = gulpLoadPlugins();
 
 GLOBAL.config = {
-	env: 'prod',
-	notify: true
+	env: 'production',
+	notify: false
 };
 
-GLOBAL.config.env = 'dev';
+console.log(!process.env.NODE_ENV);
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV !== 'production') {
+	GLOBAL.config.env = 'development';
+	GLOBAL.config.notify = true;
+}
 
 function mapError(err) {
 	if (err.fileName) {
@@ -58,7 +63,7 @@ gulp.task('scripts', () => {
 
 	const bundleTimer = $.duration('JS browserify bundle time');
 
-	if (GLOBAL.config.env !== 'dev') {
+	if (GLOBAL.config.env !== 'development') {
 		bundler.transform(rollupify);
 	}
 
