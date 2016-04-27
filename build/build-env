@@ -9,5 +9,5 @@ npm run build-$NODE_ENV
 
 echo "build-env: copying files over to dist/appserver"
 rm -rf dist/appserver
-mkdir -p dist/appserver/deploy/env
+mkdir -p dist/appserver
 cp -r {.bin,controllers,lib,models,views,.env.defaults.json,.taunusrc,*.js,package.json} dist/appserver || true
