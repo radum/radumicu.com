@@ -1,24 +1,26 @@
 /* eslint func-names: 0 */
 
-var express = require('express');
-var taunus = require('taunus');
-var taunusExpress = require('taunus-express');
-var exphbs = require('express-handlebars');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const taunus = require('taunus');
+const taunusExpress = require('taunus-express');
+// const exphbs = require('express-handlebars');
+const path = require('path');
+// const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 // var routes = require('./routes/index');
 // var users = require('./routes/users');
-var routes = require('./controllers/routes');
+const routes = require('./controllers/routes');
 
-var app = express();
+const app = express();
+
+const taunusmainLayout = require('./.bin/views/layouts/main');
 
 taunusExpress(taunus, app, {
 	routes: routes,
-	layout: require('./.bin/views/layouts/main')
+	layout: taunusmainLayout
 });
 
 // uncomment after placing your favicon in /client
@@ -34,7 +36,7 @@ app.use(express.static(path.join(__dirname, '.bin/client')));
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
-	app.use((err, req, res, next) => {
+	app.use((err, req, res) => {
 		res.status(err.status || 500);
 		res.render('error', {
 			message: err.message,
@@ -45,7 +47,7 @@ if (app.get('env') === 'development') {
 
 // production error handler
 // no stacktraces leaked to user
-app.use((err, req, res, next) => {
+app.use((err, req, res) => {
 	res.status(err.status || 500);
 	res.render('error', {
 		message: err.message,

@@ -1,3 +1,5 @@
+/* eslint-disable global-require, no-useless-concat */
+
 import gulp from 'gulp';
 import gulpLoadPlugins from 'gulp-load-plugins';
 import del from 'del'; // Used for cleaning up the folders

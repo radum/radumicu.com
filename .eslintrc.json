@@ -1,11 +1,12 @@
 {
-  "extends": "airbnb/base",
+  "extends": "airbnb-base",
   "root": true,
   "rules": {
     "comma-dangle": 0,
     "prefer-template": 0,
     "indent": [2, "tab", { "SwitchCase": 1, "VariableDeclarator": 1 }],
     "arrow-body-style": [1, "as-needed"],
+	"object-shorthand": 0,
     "max-len": [2, 160, 2, {
       "ignoreUrls": true,
       "ignoreComments": true
