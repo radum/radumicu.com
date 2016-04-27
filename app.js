@@ -5,7 +5,7 @@ const taunus = require('taunus');
 const taunusExpress = require('taunus-express');
 // const exphbs = require('express-handlebars');
 const path = require('path');
-// const favicon = require('serve-favicon');
+const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -23,8 +23,7 @@ taunusExpress(taunus, app, {
 	layout: taunusmainLayout
 });
 
-// uncomment after placing your favicon in /client
-// app.use(favicon(path.join(__dirname, 'client', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '.bin/client', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

@@ -114,9 +114,18 @@ gulp.task('views', () => {
 		.pipe(gulp.dest('.bin/views/'));
 });
 
+gulp.task('extras', () => {
+	return gulp.src([
+		'client/*.*',
+		'!client/*.html'
+	], {
+		dot: true
+	}).pipe(gulp.dest('.bin/client'));
+});
+
 gulp.task('clean', del.bind(null, ['.bin', '.tmp', 'dist']));
 
-gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views'], () => {
+gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views', 'extras'], () => {
 	gulp.watch('client/styles/**/*.scss', ['styles']);
 	gulp.watch('client/scripts/**/*.js', ['scripts']);
 	gulp.watch('client/fonts/**/*', ['fonts']);
@@ -125,7 +134,7 @@ gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views'], () => 
 	gulp.watch('views/**/*.hbs', ['views']);
 });
 
-gulp.task('build:production', ['styles', 'scripts', 'fonts', 'images', 'views']);
+gulp.task('build:production', ['styles', 'scripts', 'fonts', 'images', 'views', 'extras']);
 
 gulp.task('start:dev', ['build:dev'], () => {
 	$.nodemon({
