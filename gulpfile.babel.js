@@ -114,6 +114,17 @@ gulp.task('views', () => {
 		.pipe(gulp.dest('.bin/views/'));
 });
 
+gulp.task('taunus-wiring', (cb) => {
+	const exec = require('child_process').exec;
+
+	exec('taunus -o', (err, stdout, stderr) => {
+		console.log(stdout);
+		console.log(stderr);
+
+		cb(err);
+	});
+});
+
 gulp.task('extras', () => {
 	return gulp.src([
 		'client/*.*',
@@ -134,7 +145,7 @@ gulp.task('build:dev', ['styles', 'scripts', 'fonts', 'images', 'views', 'extras
 	gulp.watch('views/**/*.hbs', ['views']);
 });
 
-gulp.task('build:production', ['styles', 'scripts', 'fonts', 'images', 'views', 'extras']);
+gulp.task('build:production', ['styles', 'scripts', 'fonts', 'images', 'views', 'taunus-wiring', 'extras']);
 
 gulp.task('start:dev', ['build:dev'], () => {
 	$.nodemon({
