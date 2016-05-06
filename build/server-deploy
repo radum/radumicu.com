@@ -1,0 +1,54 @@
+#!/bin/bash
+
+# Project structure
+#
+# project_root (/var/appdata/radumicu.com)
+# ---| current -> releases/20160301100000 # this is a symlink to the current release
+# ---| releases
+# ------| 20160301100000
+# ------| 20160228100000
+# ------| 20160226100000
+
+# Step 1
+# buddy.works gets the code from the repo and compiles for production
+# 	npm install
+# 	NODE_ENV=production npm run build-env
+
+# Step 2
+# buddy.works executes sh commands inside this folder `/home/rmicu/tmp`
+# 	rm -rf radumicu.com
+# 	mkdir radumicu.com
+
+# Step 3
+# buddy.works copies compiled files from
+# 	/dist/appserver
+# to the server within
+# 	/home/rmicu/tmp/radumicu.com
+
+# Step 4
+# buddy.works prepares the app by installing the npm modules for production
+# 	npm install --production
+
+# Step 5
+# buddy.works executes sh script from server
+# Working directory: /home/rmicu/tmp
+# /home/rmicu/server-deploy.sh
+
+PROJECT_ROOT=/var/appdata/radumicu.com
+PROJECT_DEPLOY_TMP=/home/rmicu/tmp/radumicu.com
+
+CURRENT="$PROJECT_ROOT/current"
+RELEASES="$PROJECT_ROOT/releases"
+
+VERSION=`date "+%Y-%m-%d-%H-%M-%S"`
+
+DEPLOYTO="$RELEASES/$VERSION"
+
+echo "SERVER-DEPLOY - Deploy current release to folder:    $DEPLOYTO"
+
+# cp -rT $PROJECT_DEPLOY_TMP $DEPLOYTO
+rsync -arvR $PROJECT_DEPLOY_TMP/* $DEPLOYTO/
+
+echo "SERVER-DEPLOY - symlink release to 'current' folder: $CURRENT"
+
+ln -s $DEPLOYTO $CURRENT

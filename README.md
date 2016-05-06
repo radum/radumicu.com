@@ -42,3 +42,13 @@ npm run build-$NODE_ENV // Based on the NODE_ENV env variable will run another s
 // Next step will be to copy all files that need to on on the server in the dist temporary folder
 .bin,controllers,lib,models,views,.env.defaults.json,.taunusrc,*.js,package.json => dist/appserver
 ```
+
+# Server
+
+sudo systemctl start radumicu.com.service
+
+sudo systemctl stop radumicu.com.service
+
+sudo chown -R radumicuwww:radumicuwww /var/appdata/radumicu.com
+
+sudo -u radumicuwww HOME=/var/appdata/radumicu.com pm2 logs
