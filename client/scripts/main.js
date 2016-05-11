@@ -1,4 +1,5 @@
-import taunus from 'taunus/browser/debug';
+// import taunus from 'taunus/browser/debug';
+import taunus from 'taunus';
 // import wiring from '../../.bin/wiring';
 
 const wiring = require('../../.bin/wiring');
